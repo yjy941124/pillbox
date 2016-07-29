@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "PillBox": {
+      "applicationId": "cVCXx230pxGtW477Sb6JT5i9j25JVzjk5NTxVuZA"
+    },
+    "_default": {
+      "link": "PillBox"
+    }
+  }
+}

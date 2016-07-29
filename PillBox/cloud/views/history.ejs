@@ -1,0 +1,138 @@
+<style>
+    .button1 {
+        background-color: deepskyblue; /* Green */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 12px;
+    }
+    .button1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    .button2 {
+        background-color: forestgreen; /* Green */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 12px;
+    }
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+</style>
+<!--This is the navigation/user bar-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Smart Pillbox @ ICSL</a>
+            <a class="navbar-brand" onclick="connect()">Connect</a>
+            <a class="navbar-brand" href="/schedule">Schedule</a>
+            <a class="navbar-brand" href="/history">Records</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="nav navbar-nav navbar-right navbar-text">
+
+                <% if (user != null) { %>
+                <span > Welcome, <%=user.username%>. </span>
+
+                <span ><a class="navbar-color" href="/logout"> Log Out</a></span>
+                <div id="userExist" hidden>true</div>
+                <% } else { %>
+                <span> <a class="navbar-color" href="/signup">Sign Up</a></span>
+                <span ><a class="navbar-color" href="/login"> Log In</a></span>
+                <!--<span ><a class="navbar-color" href="/signup">Sign Up</a></span>-->
+                <div id="userExist" hidden>false</div>
+                <!--<span><button class="btn btn-success navbar-btn" onclick="document.location.href='/login';">Log In</button></span>
+                <span><button class="btn btn-success navbar-btn" onclick="document.location.href='/signup';">Sign Up</button></span>-->
+                <% }%>
+            </div>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+<div style="margin-top: 80px;">
+</div>
+
+<div class="container">
+
+    <h3 style="text-align:center;"> You can view patient's historical records below. Click <a onclick="historyTip()">here</a> for how to use it.</h3>
+        <!--<input type="text" id="loginUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+        <input type="password" id="loginPassword" name="password" class="form-control" placeholder="Password" required>-->
+    
+    <div style="text-align:center;" id="buttons">
+
+        <button class="button1" onclick="pair()">Upload History</button>
+        <button class="button2" onclick="viewHistory()">Show History</button>
+
+    </div>
+
+
+</div> <!-- /container -->
+<div style="margin-top: 30px;">
+</div>
+<div id="historyDiv">
+    <table id="historyTable" class="table table-striped" style="width:100%">
+
+    </table>
+</div>
+<div id="historyTipModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Instructions on how to check historical records.</h4>
+            </div>
+            <div class="modal-body">
+                <h4>In order to view historical records. The patient first needs to upload from its phone.</h4>
+                <h4>Once the patient initiates the upload, the smartphone application will ask for a QR code to scan.
+                On the web application, click on <b>History Portal</b> to display the QR code. This process allows secure
+                transmission of patient's records.</h4>
+                <h4>After the record is uploaded, click on <b>Show History</b> to view historical records.</h4>
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<div id="pairModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please scan the QR code to upload historical records to the doctor.</h4>
+            </div>
+            <div class="modal-body">
+                <div id="pairQrcode"></div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/history.js"></script>
+
+<!--
+This is the history html page-->

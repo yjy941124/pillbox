@@ -1,0 +1,156 @@
+<style>
+    h1 {
+        text-align: center;
+        color:darkblue;
+    }
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+
+        margin: auto;
+    }
+    .right.carousel-control, .left.carousel-control {
+        opacity: 0.1;
+        filter:alpha(opacity=0); /* IE support */
+    }
+    img {
+        width: auto;
+        height: 500px;
+        max-height: 500px;
+    }
+    h3 {
+        color:darkslateblue;
+    }
+</style>
+<!--This is the navigation/user bar-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Smart Pillbox @ ICSL</a>
+        <a class="navbar-brand" onclick="connect()">Connect</a>
+        <a class="navbar-brand" href="/schedule">Schedule</a>
+        <a class="navbar-brand" href="/history">Records</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <div class="nav navbar-nav navbar-right navbar-text">
+
+        <% if (user != null) { %>
+        <span > Welcome, <%=user.username%>. </span>
+          <!--<span ><a class="navbar-color" href="/history"> View History</a></span>-->
+        <span ><a class="navbar-color" href="/logout"> Log Out</a></span>
+        <div id="userExist" hidden>true</div>
+        <% } else { %>
+        <span> <a class="navbar-color" href="/signup">Sign Up</a></span>
+        <span ><a class="navbar-color" href="/login"> Log In</a></span>
+        <!--<span ><a class="navbar-color" href="/signup">Sign Up</a></span>-->
+        <div id="userExist" hidden>false</div>
+        <!--<span><button class="btn btn-success navbar-btn" onclick="document.location.href='/login';">Log In</button></span>
+        <span><button class="btn btn-success navbar-btn" onclick="document.location.href='/signup';">Sign Up</button></span>-->
+        <% }%>
+      </div>
+    </div><!--/.navbar-collapse -->
+  </div>
+</nav>
+
+<!--This displays the text inside navbar
+some stuff doesn't work-->
+<% if (user != null) { %>
+<%=user.username%>. You can
+
+<a href="/logout"> log out</a>
+or <a href="/history">view history</a>
+<% } else { %>
+Please <a href="/login">log in</a>
+or <a href="/signup">sign up</a>
+<% }%>
+
+<div style="margin-top: 30px;">
+</div>
+
+<!--<h3> If the patient is using <i>smart pillbox</i> for the first time, please <a onclick="connect()" >connect </a>with the patient. This will allow patientside application only communicate
+    with you.</h3>
+<h3> If the patient has visited you before, you can <a href="/schedule" >generate a new schedule </a> or <a href="/history" >check historical records </a>.</h3>-->
+<div style="margin-top: 60px;">
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8">
+
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="peopleCarouselImg" src="/img/connect.jpg" onclick="connect()" alt="Connect">
+                    <div class="carousel-caption">
+                        <h3>Click to Connect with New Patient</h3>
+
+                    </div>
+                </div>
+
+                <div class="item">
+                    <a href="/schedule"><img class="peopleCarouselImg" src="/img/schedule2.png" alt="schedule"></a>
+                    <div class="carousel-caption">
+                        <h3>Click to Generate a New Schedule</h3>
+
+                    </div>
+                </div>
+
+                <div class="item">
+                    <a href="/history"><img class="peopleCarouselImg" src="/img/record.jpg" alt="history"></a>
+                    <div class="carousel-caption">
+                        <h3 >Click to See Historical Records</h3>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+
+<!--Modal for connecting with doctor-->
+<div id="connectModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Please scan the QR code to connect your phone with the doctor.</h4>
+      </div>
+      <div class="modal-body">
+        <div id="connectQrcode"></div>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="/js/home.js"></script>
+

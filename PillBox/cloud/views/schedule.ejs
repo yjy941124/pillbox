@@ -1,0 +1,391 @@
+<style>
+    .button1 {
+        background-color: deepskyblue; /* Green */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 12px;
+    }
+    .button1:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    .button2 {
+        background-color: forestgreen; /* Green */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        border-radius: 12px;
+    }
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+</style>
+<!--This is the navigation/user bar-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Smart Pillbox @ ICSL</a>
+            <a class="navbar-brand" onclick="connect()">Connect</a>
+            <a class="navbar-brand" href="/schedule">Schedule</a>
+            <a class="navbar-brand" href="/history">Records</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="nav navbar-nav navbar-right navbar-text">
+
+                <% if (user != null) { %>
+                <span > Welcome, <%=user.username%>. </span>
+
+                <span ><a class="navbar-color" href="/logout"> Log Out</a></span>
+                <div id="userExist" hidden>true</div>
+                <% } else { %>
+                <span> <a class="navbar-color" href="/signup">Sign Up</a></span>
+                <span ><a class="navbar-color" href="/login"> Log In</a></span>
+                <!--<span ><a class="navbar-color" href="/signup">Sign Up</a></span>-->
+                <div id="userExist" hidden>false</div>
+                <!--<span><button class="btn btn-success navbar-btn" onclick="document.location.href='/login';">Log In</button></span>
+                <span><button class="btn btn-success navbar-btn" onclick="document.location.href='/signup';">Sign Up</button></span>-->
+                <% }%>
+            </div>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+
+<div style="margin-top: 80px;">
+</div>
+<h3 style="text-align:center;"> Please generate the weekly schedule below. Click <a onclick="scheduleTip()">here</a> for how to use it.</h3>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Time slots</th>
+                <th>Day 1</th>
+                <th>Day 2</th>
+                <th>Day 3</th>
+                <th>Day 4</th>
+                <th>Day 5</th>
+                <th>Day 6</th>
+                <th>Day 7</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Time slot 1 <input id='checkbox1' type="checkbox" checked></td>
+
+                <td>
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="dtpInput1" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="dtpInput2" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker3'>
+                        <input id="dtpInput3" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker4'>
+                        <input id="dtpInput4" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker5'>
+                        <input id="dtpInput5" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker6'>
+                        <input id="dtpInput6" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker7'>
+                        <input id="dtpInput7" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Time slot 2 <input id='checkbox2' type="checkbox" checked></td>
+                <td>
+                    <div class='input-group date' id='datetimepicker8'>
+                        <input id="dtpInput8" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker9'>
+                        <input id="dtpInput9" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker10'>
+                        <input id="dtpInput10" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker11'>
+                        <input id="dtpInput11" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker12'>
+                        <input id="dtpInput12" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker13'>
+                        <input id="dtpInput13" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker14'>
+                        <input id="dtpInput14" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+            </tr>
+            <tr>
+                <td>Time slot 3 <input id='checkbox3' type="checkbox" checked></td>
+                <td>
+                    <div class='input-group date' id='datetimepicker15'>
+                        <input id="dtpInput15" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker16'>
+                        <input id="dtpInput16" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker17'>
+                        <input id="dtpInput17" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker18'>
+                        <input id="dtpInput18" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker19'>
+                        <input id="dtpInput19" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker20'>
+                        <input id="dtpInput20" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker21'>
+                        <input id="dtpInput21" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+            </tr>
+            <tr>
+                <td>Time slot 4 <input id='checkbox4' type="checkbox" checked></td>
+                <td>
+                    <div class='input-group date' id='datetimepicker22'>
+                        <input id="dtpInput22" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker23'>
+                        <input id="dtpInput23" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker24'>
+                        <input id="dtpInput24" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker25'>
+                        <input id="dtpInput25" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker26'>
+                        <input id="dtpInput26" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker27'>
+                        <input id="dtpInput27" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+                    <div class='input-group date' id='datetimepicker28'>
+                        <input id="dtpInput28" type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+                    </div>
+                </td>
+                <td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;" id="buttons">
+
+            <button class="button1" onclick="autoFill()">AutoFill</button>
+            <button class="button2" onclick="submit()">Submit Schedule</button>
+
+    </div>
+
+
+</div>
+
+<!--Modal for sync schedule-->
+<div id="scheduleModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Please scan the QR code to upload the new schedule to your phone.</h4>
+            </div>
+            <div class="modal-body">
+                <div id="scheduleQrcode"></div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<!--scheduleTip modal-->
+<div id="scheduleTipModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Instructions on how to generate schedules.</h4>
+            </div>
+            <div class="modal-body">
+                <h4>There are two ways to generate schedules</h4>
+                <p>1. You can assign timeslots for <b>Day 1</b> and click on the <b>AutoFill</b> button.
+                This will automatically generate the same schedule for the rest of the week. Uncheck the checkboxes if
+                the patient needs to take medication less than four times a day.</p>
+                <p>2. You can also fill out the whole schedule manually if each day has a different schedule.</p>
+                <p>After you have generated a new schedule, click on the <b>Submit Schedule</b>. This will generate
+                    a QR code for patient to scan. Once the QR code is scanned, the new schedule will be uploaded
+                to the patient's application.</p>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/schedule.js"></script>
+
